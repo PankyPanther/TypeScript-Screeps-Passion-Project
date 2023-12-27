@@ -1,3 +1,6 @@
+import { CreepRole } from "utils/definition"
+import { runCreepStateMachine, StateMachine } from "managers/state_manager"
+
 interface HarvesterMemory {
     state: string
     previousState: string | null
@@ -8,17 +11,12 @@ interface HarvesterMemory {
 const roleHarvester: CreepRole = {
     getRoleName() { return 'harvester'; },
 
-    // getBody(energyCapacity) {
-    //     if (energyCapacity >= (CAPACITY_RCL_1 + (CAPACITY_EXT * 2))){
-    //         return [
-    //             MOVE, MOVE,
-    //             WORK, WORK,
-    //             CARRY, CARRY
-    //         ]
-    //     } else {
-    //         // return some default body type
-    //     }
-    // },
+    getBody(energyCapacity) {
+        return [
+            MOVE, MOVE,
+            WORK, CARRY
+        ]
+    },
 
     run: function(creep) {
         const machine: StateMachine<HarvesterMemory> = {
@@ -29,16 +27,22 @@ const roleHarvester: CreepRole = {
             }),
             states: {
                 'HARVESTING': {
-
+                    tick: (context) => {
+                        creep.say('yippie')
+                        return null
+                    }
                 },
                 'STORING': {
-                    
+                    tick: (context) => {
+                        return null
+                    }
                 }
             }
         };
+        runCreepStateMachine(creep, machine, 'roleHarvester');
     }
-    // run some state machine
-}
+    
+};
 
 
 export default roleHarvester

@@ -1,3 +1,5 @@
+import { runCreepRole } from "creeps/roles";
+
 export function loop(): void {
   console.log(`Current game tick is ${Game.time}`);
   
@@ -7,5 +9,9 @@ export function loop(): void {
       delete Memory.creeps[creepName];
     }
   }
-  
+
+  for (let creepName in Game.creeps) {
+      let creep = Game.creeps[creepName]
+      runCreepRole(creep)
+  }
 }
