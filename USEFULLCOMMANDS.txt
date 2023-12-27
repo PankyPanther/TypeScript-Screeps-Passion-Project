@@ -1,0 +1,6 @@
+npm run push-main => pushes the new script to screeps server
+
+* push main can be replaced by a bunch of different commands in the package.json * 
+
+https://wiki.screepspl.us/index.php/Getting_Started
+https://wiki.screepspl.us/index.php/Great_Filters
