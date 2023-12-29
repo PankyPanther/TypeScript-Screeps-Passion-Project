@@ -29,7 +29,8 @@ const roleHarvester: CreepRole = {
                 'HARVESTING': {
                     tick: (context) => {
                         creep.say('yippie')
-                        return null
+                        return 'HARVESTING'
+                        // return null
                     }
                 },
                 'STORING': {
