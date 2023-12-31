@@ -7,6 +7,12 @@ declare global {
     }
 }
 
+declare global {
+    interface RoomMemory {
+        role: string
+    }
+}
+
 
 
 export interface CreepRole {
@@ -15,6 +21,7 @@ export interface CreepRole {
     run(creep: Creep): void
 }
 
-export interface CreepMemory {
-    role: string;
+
+export interface RoomRole {
+    run(room: Room): void
 }

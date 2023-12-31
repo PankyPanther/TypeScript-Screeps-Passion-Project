@@ -1,4 +1,6 @@
 import { runCreepRole } from "creeps/roles";
+import { runRoomRole } from "Rooms/roles";
+import { test } from "test";
 
 export function loop(): void {
   console.log(`Current game tick is ${Game.time}`);
@@ -14,4 +16,15 @@ export function loop(): void {
       let creep = Game.creeps[creepName]
       runCreepRole(creep)
   }
+
+  for (let roomName in Game.rooms) {
+    const room = Game.rooms[roomName];
+    // if (!room.isInitialize()) {
+    //   room.initialize()
+    // }
+    runRoomRole(room);
+    console.log(room)
+  }
+
+  test();
 }
