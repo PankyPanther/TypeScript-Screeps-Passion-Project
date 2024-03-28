@@ -1,5 +1,6 @@
 import { runCreepRole } from "creeps/roles";
 import { runRoomRole } from "Rooms/roles";
+import { isInitialize, initialize} from "Rooms/roles/initialize";
 import { test } from "test";
 
 export function loop(): void {
@@ -19,11 +20,10 @@ export function loop(): void {
 
   for (let roomName in Game.rooms) {
     const room = Game.rooms[roomName];
-    // if (!room.isInitialize()) {
-    //   room.initialize()
-    // }
+    if (!isInitialize(room)) {
+      initialize(room)
+    }
     runRoomRole(room);
-    console.log(room)
   }
 
   test();

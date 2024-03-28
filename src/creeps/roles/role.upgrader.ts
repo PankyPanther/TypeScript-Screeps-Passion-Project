@@ -2,11 +2,11 @@ import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
 import { harvest } from "creeps/actions/action.harvest"
 import { assignSource } from "utils/assignSource"
-import { store } from "creeps/actions/action.store";
+import { upgrade } from "creeps/actions/action.upgrade"
 
 // roleHarvester: CreepRole
-const roleHarvester: CreepRole = {
-    getRoleName() { return 'harvester'; },
+const roleUpgrader: CreepRole = {
+    getRoleName() { return 'upgrader'; },
 
     getBody(energyCapacity) {
         return [
@@ -29,7 +29,7 @@ const roleHarvester: CreepRole = {
                         data.sourceID = assignSource(creep)
                     }
 
-                    if (creep.store.getFreeCapacity() == 0) { return "STORING" }
+                    if (creep.store.getFreeCapacity() == 0) { return "UPGRADEING" }
 
                     harvest(creep, {
                         sourceID: data.sourceID
@@ -40,13 +40,13 @@ const roleHarvester: CreepRole = {
                     
                 },
             
-                STORING: (data: any, creep: Creep) => {
+                UPGRADEING: (data: any, creep: Creep) => {
                     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "HARVESTING" }
 
-                    creep.say('store')
-                    store(creep)
+                    creep.say('upgrade')
+                    upgrade(creep)
                     
-                    return "STORING"
+                    return "UPGRADEING"
                 },
         
         };
@@ -56,4 +56,4 @@ const roleHarvester: CreepRole = {
 };
 
 
-export default roleHarvester
+export default roleUpgrader

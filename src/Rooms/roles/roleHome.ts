@@ -1,10 +1,11 @@
 import { RoomRole } from "utils/definition";
+import { autoSpawn } from "./autoSpawn";
 
 const roleHome: RoomRole = {
     run: function(room) {
 
-        if (Game.time % 10 === 0) {
-            //spawn logic
+        if (Game.time % 5 === 0) {
+            autoSpawn(room)
         }
         if (Game.time % 10 === 2) {
             //events

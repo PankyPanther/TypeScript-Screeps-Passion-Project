@@ -1,40 +1,25 @@
-export interface StateMachine<M extends EmptyMemoryContext> {
-    states: {
-        [name: string]: State<M>
-    },
-    initialContext: () => M
-}
-
-export interface State<M> {
-    tick: (context: M) => string | null
-}
-
-export interface EmptyMemoryContext {
-    state: string
-    previousState: string | null
-}
-
-export function runCreepStateMachine<M extends EmptyMemoryContext> (
+declare global {
+    interface CreepMemory {
+      runState?: string;
+    }
+  }
+  
+  export function runStates<M extends {}>(
+    states: Record<string, (data: M, creep: Creep) => string>,
+    data: M,
     creep: Creep,
-    machine: StateMachine<M>,
-    memoryNamespace: keyof CreepMemory
-) {
-    if (!creep.memory[memoryNamespace]) {
-        creep.memory[memoryNamespace] = machine.initialContext();
+  ) {
+      const statesRun: string[] = [];
+      
+      creep.memory.runState = creep.memory.runState ?? Object.keys(states)[0]; // First state is default
+      while (!statesRun.includes(creep.memory.runState)) {
+        statesRun.push(creep.memory.runState);
+        
+        if (!(creep.memory.runState in states)) {
+          const state = creep.memory.runState;
+          delete creep.memory.runState;
+          throw new Error(`Mission has no state: ${state}`);
+        }
+        creep.memory.runState = states[creep.memory.runState](data, creep);
     }
-
-    const memoryContext = creep.memory[memoryNamespace] as M;
-    const currentState = memoryContext.state;
-
-    const newState = machine.states[currentState].tick(memoryContext);
-
-    memoryContext.previousState = currentState;
-
-    if (newState) {
-        memoryContext.state = newState;
-
-        // if (Memory.debug.creepId) {
-        //     creep.say(newState);
-        // }
-    }
-}
+  }

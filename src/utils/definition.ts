@@ -1,9 +1,6 @@
-import { EmptyMemoryContext } from "managers/state_manager"
-
 declare global {
     interface CreepMemory {
-        role: string
-        [memoryNamespace: string]: EmptyMemoryContext
+          role: string
     }
 }
 
@@ -15,9 +12,13 @@ declare global {
 
 
 
+
+
+
+
 export interface CreepRole {
     getRoleName(): string
-    getBody(energyCapacity: number): string[]
+    getBody(energyCapacity: number): BodyPartConstant[]
     run(creep: Creep): void
 }
 
