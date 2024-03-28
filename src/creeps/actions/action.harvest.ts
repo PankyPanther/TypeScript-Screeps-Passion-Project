@@ -3,10 +3,8 @@ export function harvest(creep: Creep, data: any = {}) {
 
     // if has source - go to source and harvest
     if(storedSource){
-        if(creep.pos.isNearTo(storedSource)){
-            creep.harvest(storedSource);
-        } else {
-            creep.moveTo(storedSource, {visualizePathStyle: {stroke: '#E0115F'}});
+        if (creep.harvest(storedSource) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(storedSource)
         }
     }
 }

@@ -1,7 +1,6 @@
 import { runCreepRole } from "creeps/roles";
 import { runRoomRole } from "Rooms/roles";
 import { isInitialize, initialize} from "Rooms/roles/initialize";
-import { test } from "test";
 
 export function loop(): void {
   console.log(`Current game tick is ${Game.time}`);
@@ -25,6 +24,4 @@ export function loop(): void {
     }
     runRoomRole(room);
   }
-
-  test();
 }

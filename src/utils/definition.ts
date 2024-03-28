@@ -4,14 +4,23 @@ declare global {
     }
 }
 
+interface SourcePostion {
+    posX: number
+    posY: number
+    roomName: string
+}
+
+interface SourceMemory {
+    pos: SourcePostion
+    creepParts: string[]
+}
+
 declare global {
     interface RoomMemory {
+        sources: {[sourceID: Id<Source>]: SourceMemory}
         role: string
     }
 }
-
-
-
 
 
 

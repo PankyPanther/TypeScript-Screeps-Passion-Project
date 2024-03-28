@@ -16,9 +16,11 @@ const roleUpgrader: CreepRole = {
     },
 
     run: function(creep) {
+        
+
         // Define your states as functions
         const data = {
-            sourceID: ''
+            controllerText: 'Save the trees you must not, but to be saved from them is a bigger problem'
         };
 
         const states = {
@@ -43,8 +45,12 @@ const roleUpgrader: CreepRole = {
                 UPGRADEING: (data: any, creep: Creep) => {
                     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "HARVESTING" }
 
+
+
                     creep.say('upgrade')
-                    upgrade(creep)
+                    upgrade(creep, {
+                        controllerText: data.controllerText
+                    })
                     
                     return "UPGRADEING"
                 },
