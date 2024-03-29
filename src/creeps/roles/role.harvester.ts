@@ -1,7 +1,7 @@
 import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
 import { harvest } from "creeps/actions/action.harvest"
-import { assignSource } from "utils/assignSource"
+import { findValidSource } from "utils/findValidSource"
 import { store } from "creeps/actions/action.store";
 
 // roleHarvester: CreepRole
@@ -18,15 +18,16 @@ const roleHarvester: CreepRole = {
     run: function(creep) {
         // Define your states as functions
         const data = {
-            sourceID: ''
+            sourceID: creep.memory.sourceID
         };
 
         const states = {
                 HARVESTING: (data: any, creep: Creep) => {
                     creep.say('harvesting')
-
+                    
+                    console.log(data.sourceID)
                     if (!data.sourceID){
-                        data.sourceID = assignSource(creep)
+                        creep.memory.sourceID = findValidSource(creep)
                     }
 
                     if (creep.store.getFreeCapacity() == 0) { return "STORING" }

@@ -1,7 +1,7 @@
 import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
 import { harvest } from "creeps/actions/action.harvest"
-import { assignSource } from "utils/assignSource"
+import { findValidSource } from "utils/findValidSource"
 import { upgrade } from "creeps/actions/action.upgrade"
 
 // roleHarvester: CreepRole
@@ -16,11 +16,11 @@ const roleUpgrader: CreepRole = {
     },
 
     run: function(creep) {
-        
-
+    
         // Define your states as functions
         const data = {
-            controllerText: 'Save the trees you must not, but to be saved from them is a bigger problem'
+            controllerText: 'Save the trees you must not, but to be saved from them is a bigger problem',
+            sourceID: ''
         };
 
         const states = {
@@ -28,7 +28,7 @@ const roleUpgrader: CreepRole = {
                     creep.say('harvesting')
 
                     if (!data.sourceID){
-                        data.sourceID = assignSource(creep)
+                        data.sourceID = findValidSource(creep)
                     }
 
                     if (creep.store.getFreeCapacity() == 0) { return "UPGRADEING" }
@@ -44,8 +44,6 @@ const roleUpgrader: CreepRole = {
             
                 UPGRADEING: (data: any, creep: Creep) => {
                     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "HARVESTING" }
-
-
 
                     creep.say('upgrade')
                     upgrade(creep, {

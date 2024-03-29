@@ -1,18 +1,12 @@
 declare global {
     interface CreepMemory {
           role: string
+          sourceID: Id<Source> | undefined 
     }
 }
 
-interface SourcePostion {
-    posX: number
-    posY: number
-    roomName: string
-}
-
 interface SourceMemory {
-    pos: SourcePostion
-    creepParts: string[]
+    creeps: string[]
 }
 
 declare global {
@@ -21,9 +15,6 @@ declare global {
         role: string
     }
 }
-
-
-
 
 export interface CreepRole {
     getRoleName(): string

@@ -1,5 +1,6 @@
 import { runCreepRole } from "creeps/roles";
 import { runRoomRole } from "Rooms/roles";
+import { deleteSourceData } from "utils/deleteSourceData";
 import { isInitialize, initialize} from "Rooms/roles/initialize";
 
 export function loop(): void {
@@ -8,6 +9,7 @@ export function loop(): void {
   for (const creepName in Memory.creeps) {
     if(!Game.creeps[creepName]) {
       console.log(`Deleting memory for dead creep: ${creepName}`)
+      deleteSourceData(Game.creeps[creepName])
       delete Memory.creeps[creepName];
     }
   }

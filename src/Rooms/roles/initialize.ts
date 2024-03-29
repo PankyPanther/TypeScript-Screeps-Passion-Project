@@ -11,16 +11,11 @@ export function initialize(room: Room): void {
     room.memory.sources = { }
 
 
-    const sources = room
+    room
         .find(FIND_SOURCES)
         .forEach((source) => {
             room.memory.sources[source.id] = {
-                pos: {
-                    posX: source.pos.x,
-                    posY: source.pos.y,
-                    roomName: room.name
-                },
-                creepParts: []
+                creeps: []
             }
         })
     

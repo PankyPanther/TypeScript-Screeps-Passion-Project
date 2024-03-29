@@ -1,5 +1,5 @@
 import { RoomRole } from "utils/definition";
-import { autoSpawn } from "./autoSpawn";
+import { autoSpawn } from "./Spawns/autoSpawn";
 
 const roleHome: RoomRole = {
     run: function(room) {
