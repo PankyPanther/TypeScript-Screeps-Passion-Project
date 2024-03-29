@@ -25,7 +25,6 @@ const roleHarvester: CreepRole = {
                 HARVESTING: (data: any, creep: Creep) => {
                     creep.say('harvesting')
                     
-                    console.log(data.sourceID)
                     if (!data.sourceID){
                         creep.memory.sourceID = findValidSource(creep)
                     }

@@ -9,7 +9,9 @@ export function loop(): void {
   for (const creepName in Memory.creeps) {
     if(!Game.creeps[creepName]) {
       console.log(`Deleting memory for dead creep: ${creepName}`)
-      deleteSourceData(Game.creeps[creepName])
+      if (Memory.creeps[creepName].sourceID) {
+        deleteSourceData(Game.creeps[creepName], Memory.creeps[creepName].sourceID)
+      }
       delete Memory.creeps[creepName];
     }
   }
