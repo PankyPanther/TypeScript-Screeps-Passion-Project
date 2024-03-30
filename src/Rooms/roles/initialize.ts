@@ -1,3 +1,5 @@
+import { findOpenSourceSpaces } from "utils/findOpenSourceSpaces";
+
 export function isInitialize(room: Room): boolean {
     if (!room.memory.role) {
         console.log("Initializeing room data")
@@ -15,7 +17,8 @@ export function initialize(room: Room): void {
         .find(FIND_SOURCES)
         .forEach((source) => {
             room.memory.sources[source.id] = {
-                creeps: []
+                creeps: [],
+                openSpots: findOpenSourceSpaces(source)
             }
         })
     

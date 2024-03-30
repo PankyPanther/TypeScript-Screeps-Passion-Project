@@ -5,5 +5,5 @@ export function autoSpawn(room: Room) {
     let creepBody = roleHarvester.getBody(room.energyCapacityAvailable)
     let newName =  `${Game.time}`;
  
-    spawns[0].spawnCreep(creepBody, newName, {memory: {role: 'harvester', sourceID: undefined}});
+    spawns[0].spawnCreep(creepBody, newName, {memory: {role: 'harvester', workRoom: room}});
 }

@@ -1,12 +1,17 @@
 declare global {
     interface CreepMemory {
           role: string
-          sourceID: Id<Source> | undefined 
+          workRoom: Room
+          sourceID?: Id<Source> | undefined
+          target?: number
+          path?: any
+          previousPos?: any
     }
 }
 
 interface SourceMemory {
     creeps: string[]
+    openSpots: number
 }
 
 declare global {

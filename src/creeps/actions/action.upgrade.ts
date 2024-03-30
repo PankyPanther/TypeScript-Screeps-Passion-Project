@@ -1,18 +1,34 @@
+import { cachePath } from "creeps/PathFinding/cachePath";
+import { getCachedPath } from "creeps/PathFinding/getCachedPath";
+
+
 export function upgrade(creep: Creep, data: any = {}) { 
     let controller = creep.room.controller;
 
     // if has source - go to source and harvest
     if (controller){
-        if (creep.upgradeController(controller) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(controller)
-        } else {
-            if (!controller.sign == data.controllerText){
-                if (Game.time % 10 === 1) {
-                    if (creep.signController(controller, data.controllerText) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(controller)
-                    }
-                }
+        if (creep.pos.isNearTo(controller)) {
+            creep.upgradeController(controller)
+            return
+        }         
+        
+        const cachedPath: PathStep[] | null = getCachedPath(creep);
+        const path: PathStep[] | null = creep.pos.findPathTo(controller.pos);
+
+        if (!cachedPath) {
+            if (path) {
+                cachePath(creep, path);
             }
+
+            return  
+        } 
+
+        if (Game.time % 10 == 0 || creep.moveByPath(cachedPath) !== 0) {
+            creep.memory.path = {}
+            cachePath(creep, path)
+            creep.moveByPath(cachedPath);
         }
+
+        creep.moveByPath(cachedPath);   
     }
 }
