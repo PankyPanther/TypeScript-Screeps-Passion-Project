@@ -67,7 +67,7 @@ export function spawnScoreManager(room: Room): string | undefined{
         return 'scout'
     }
     
-    else if (maxPotentialEnergy - energyUse > 0){
+    else if (maxPotentialEnergy - energyUse > 500){
         return 'upgrader'
     }
 
