@@ -1,4 +1,4 @@
-import { CreepRole } from "utils/definition"
+import { CreepRole } from "definition"
 import { runStates } from "managers/state_manager"
 import { harvest } from "creeps/actions/action.harvest"
 import { findValidSource } from "creeps/subactions/findValidSource"

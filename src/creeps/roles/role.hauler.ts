@@ -1,4 +1,4 @@
-import { CreepRole } from "utils/definition"
+import { CreepRole } from "definition"
 import { runStates } from "managers/state_manager"
 import { store } from "creeps/actions/action.store";
 import { gather } from "creeps/actions/action.gather";
@@ -6,7 +6,7 @@ import { findGatherPlace } from "creeps/subactions/findGatherPlace";
 
 // roleHarvester: CreepRole
 const roleHauler: CreepRole = {
-    getRoleName() { return 'harvester'; },
+    getRoleName() { return 'hauler'; },
 
     getBody(energyCapacity) {
         return [

@@ -1,4 +1,4 @@
-import { RoomRole } from "utils/definition";
+import { RoomRole } from "definition";
 import { autoSpawn } from "./Spawns/autoSpawn";
 
 const roleHome: RoomRole = {

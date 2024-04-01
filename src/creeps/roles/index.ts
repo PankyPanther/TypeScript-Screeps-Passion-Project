@@ -1,4 +1,4 @@
-import { CreepRole } from 'utils/definition'; 
+import { CreepRole } from 'definition'; 
 import roleHarvester from './role.harvester';
 import roleUpgrader from './role.upgrader';
 import roleHauler from './role.hauler';

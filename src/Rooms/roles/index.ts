@@ -1,4 +1,4 @@
-import { RoomRole } from "utils/definition"
+import { RoomRole } from "definition"
 import roleExplored from "./roleExplored"
 import roleHome from "./roleHome"
 

@@ -1,4 +1,4 @@
-import { CreepRole } from "utils/definition"
+import { CreepRole } from "definition"
 import { runStates } from "managers/state_manager"
 import { findGatherPlace } from "creeps/subactions/findGatherPlace"
 import { upgrade } from "creeps/actions/action.upgrade"

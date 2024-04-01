@@ -1,4 +1,4 @@
-import { RoomRole } from "utils/definition";
+import { RoomRole } from "definition";
 
 const roleExplored: RoomRole = {
     run: function(room) {
