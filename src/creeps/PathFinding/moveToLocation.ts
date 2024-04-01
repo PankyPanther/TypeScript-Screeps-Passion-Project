@@ -1,5 +1,6 @@
 import { cachePath } from "creeps/PathFinding/cachePath";
 import { getCachedPath } from "creeps/PathFinding/getCachedPath";
+import { creepIsStuck } from "./creepIsStuck";
 
 export function moveToLocation(creep: Creep, location: any) {
     const cachedPath: PathStep[] | null = getCachedPath(creep);
@@ -8,16 +9,16 @@ export function moveToLocation(creep: Creep, location: any) {
     if (!cachedPath) {
         if (path) {
             cachePath(creep, path);
+            creep.moveByPath(path)
         }
-
-        return  
     } 
 
-    if (creep.moveByPath(cachedPath) !== 0) {
-        creep.memory.path = {}
-        cachePath(creep, path)
-        creep.moveByPath(cachedPath);
+    if (cachedPath){
+        if (creep.moveByPath(cachedPath) !== 0 || creepIsStuck(creep)){
+            creep.memory.path = {}
+            cachePath(creep, path)
+        }
+    
+        creep.moveByPath(cachedPath);  
     }
-
-    creep.moveByPath(cachedPath);  
 }
