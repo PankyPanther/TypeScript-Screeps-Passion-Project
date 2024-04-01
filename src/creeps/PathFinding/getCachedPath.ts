@@ -4,6 +4,8 @@ export function getCachedPath(creep: Creep): PathStep[] | null {
     try {
         return Room.deserializePath(creep.memory.path);
     } catch (error) {
+        creep.memory.path = {}
+        
         return null;
     }
 }

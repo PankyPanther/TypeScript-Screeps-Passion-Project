@@ -8,7 +8,7 @@ interface RoleLookup {
 
 const ROLES: RoleLookup = {
     'explored': roleExplored,
-    'home': roleHome
+    'home': roleHome,
 }
 
 export function getRole(room: Room) {

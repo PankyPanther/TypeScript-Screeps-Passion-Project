@@ -1,7 +1,8 @@
 export function cachePath(creep: Creep, path: PathStep[]) {
-    try {
-        creep.memory.path = Room.serializePath(path);
-    } catch (error) {
-        return
+    creep.say('help')
+    if (Room.serializePath(path)) {
+        creep.memory.path = Room.serializePath(path)
+    } else {
+        creep.memory.path = {}
     }
 }

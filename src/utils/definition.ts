@@ -18,6 +18,8 @@ declare global {
     interface RoomMemory {
         sources: {[sourceID: Id<Source>]: SourceMemory}
         role: string
+        status?: string
+        lastEntered?: number
     }
 }
 
