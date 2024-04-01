@@ -29,7 +29,10 @@ const roleHarvester: CreepRole = {
                         creep.memory.sourceID = findValidSource(creep)
                     }
 
-                    if (creep.store.getFreeCapacity() == 0) { return "STORING" }
+                    if (creep.store.getFreeCapacity() == 0) {
+                        creep.memory.path = {} 
+                        return "STORING"
+                    }
 
                     harvest(creep, {
                         sourceID: data.sourceID
@@ -41,7 +44,10 @@ const roleHarvester: CreepRole = {
                 },
             
                 STORING: (data: any, creep: Creep) => {
-                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "HARVESTING" }
+                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { 
+                        creep.memory.path = {} 
+                        return "HARVESTING" 
+                    }
 
                     // creep.say('store')
                     store(creep)

@@ -27,7 +27,10 @@ const roleHauler: CreepRole = {
                         creep.memory.target
                     }
 
-                    if (creep.store.getFreeCapacity() == 0) { return "STORING" }
+                    if (creep.store.getFreeCapacity() == 0) { 
+                        creep.memory.path = {}
+                        return "STORING" 
+                    }
 
                     store(creep, {
                         target: data.target
@@ -38,7 +41,10 @@ const roleHauler: CreepRole = {
                 },
             
                 STORING: (data: any, creep: Creep) => {
-                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "GATHERING" }
+                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
+                        creep.memory.path = {}
+                        return "GATHERING" 
+                    }
 
                     creep.say('gathering')
 

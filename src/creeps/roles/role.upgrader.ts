@@ -20,7 +20,7 @@ const roleUpgrader: CreepRole = {
         // Define your states as functions
         const data = {
             controllerText: 'Save the trees you must not, but to be saved from them is a bigger problem',
-            sourceID: ''
+            sourceID: creep.memory.sourceID
         };
 
         const states = {
@@ -28,10 +28,13 @@ const roleUpgrader: CreepRole = {
                     creep.say('harvesting')
 
                     if (!data.sourceID){
-                        data.sourceID = findValidSource(creep)
+                        creep.memory.sourceID = findValidSource(creep)
                     }
 
-                    if (creep.store.getFreeCapacity() == 0) { return "UPGRADEING" }
+                    if (creep.store.getFreeCapacity() == 0) {
+                        creep.memory.path = {} 
+                        return "UPGRADEING"
+                    }
 
                     harvest(creep, {
                         sourceID: data.sourceID
@@ -43,7 +46,10 @@ const roleUpgrader: CreepRole = {
                 },
             
                 UPGRADEING: (data: any, creep: Creep) => {
-                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) { return "HARVESTING" }
+                    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
+                        creep.memory.path = {}
+                        return "HARVESTING" 
+                    }
 
                     creep.say('upgrade')
                     upgrade(creep, {
