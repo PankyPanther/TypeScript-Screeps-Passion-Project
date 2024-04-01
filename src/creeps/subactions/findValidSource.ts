@@ -1,7 +1,5 @@
 export function findValidSource(room: Room, creep?: Creep): Id<Source> | undefined{
     // eventually i would like it to check for open pos around it aswell
-
-
     let source = room.find(FIND_SOURCES).find((source) => {
         let sourceWorkParts = Memory.rooms[room.name].sources[source.id].creeps
             .map(name => {

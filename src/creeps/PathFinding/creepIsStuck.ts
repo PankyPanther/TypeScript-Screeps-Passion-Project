@@ -5,7 +5,6 @@ export function creepIsStuck(creep: Creep): boolean | null {
     }
 
     if (creep.pos.x === creep.memory.previousPos.x && creep.pos.y === creep.memory.previousPos.y){
-        creep.say('im stuck')
         return true
     }
 

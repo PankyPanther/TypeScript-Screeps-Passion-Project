@@ -33,11 +33,14 @@ const roleHarvester: CreepRole = {
                     if (creep.store.getFreeCapacity() == 0) {
                         creep.memory.path = {}
                         let hauler = null
-                        _.forEach(Memory.creeps, (creep) => {
-                            if (creep.role === 'hauler'){
-                                hauler = true
-                            }  
-                        })
+                        for (let creepName in Memory.creeps) {
+                            if (Memory.creeps.hasOwnProperty(creepName)) {
+                                let creep = Memory.creeps[creepName];
+                                if (creep.role === 'hauler') {
+                                    hauler = true;
+                                }
+                            }
+                        }
                         if (hauler) { return "DROPING" }
                         return "STORING"
                     }

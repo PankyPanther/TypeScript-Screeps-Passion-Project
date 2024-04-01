@@ -5,18 +5,22 @@ export function spawnScoreManager(room: Room): string | undefined{
 
     // lodash functions bad - fix
     let maxPotentialEnergy: number = 0
-    _.forEach(Memory.rooms, (room) => {
-        _.forEach(room.sources, (source) => {
-            if (source.creeps != undefined) {
-                maxPotentialEnergy += source.creeps
-                .map(name => {
-                    return Game.creeps[name]?.getActiveBodyparts(WORK) || 0
-                }) 
-                .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-            }
-        })
 
-    });
+    for (let roomName in Memory.rooms) {
+        if (Memory.rooms.hasOwnProperty(roomName)) {
+            let room = Memory.rooms[roomName];
+            let sources = Object.values(room.sources); // Extract values of sources object
+            for (let source of sources) {
+                if (source.creeps !== undefined) {
+                    maxPotentialEnergy += source.creeps
+                        .map(name => {
+                            return Game.creeps[name]?.getActiveBodyparts(WORK) || 0;
+                        })
+                        .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                }
+            }
+        }
+    }
     maxPotentialEnergy *= 300 * 2
     // creeps already spawned
 
@@ -27,20 +31,28 @@ export function spawnScoreManager(room: Room): string | undefined{
 
     
 
-    _.forEach(Memory.creeps, (creep) => {
-        if (creep.role === 'harvester'){
-            harvesterAmount++
+    for (let creepName in Memory.creeps) {
+        if (Memory.creeps.hasOwnProperty(creepName)) {
+            let creep = Memory.creeps[creepName];
+            switch (creep.role) {
+                case 'harvester':
+                    harvesterAmount++;
+                    break;
+                case 'hauler':
+                    haulerAmount++;
+                    break;
+                case 'scout':
+                    scoutAmount++;
+                    break;
+                case 'upgrader':
+                    upgraderAmount++;
+                    break;
+                default:
+                    // Handle other roles if needed
+                    break;
+            }
         }
-        else if (creep.role === 'hauler'){
-            haulerAmount++
-        }
-        else if (creep.role === 'scout'){
-            scoutAmount++
-        }
-        else if (creep.role === 'upgrader'){
-            upgraderAmount++
-        }   
-    })
+    }
 
     let creepAmount = harvesterAmount + haulerAmount + scoutAmount + upgraderAmount 
     let upgraderEnergyUse = upgraderAmount * 300

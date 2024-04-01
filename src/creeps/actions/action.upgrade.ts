@@ -5,7 +5,7 @@ export function upgrade(creep: Creep, data: any = {}) {
 
     // if has source - go to source and harvest
     if (controller){
-        if (creep.transfer(controller, RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) {
+        if (creep.upgradeController(controller) != ERR_NOT_IN_RANGE) {
             creep.upgradeController(controller)
             return
         }         
