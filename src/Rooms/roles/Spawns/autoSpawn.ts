@@ -1,26 +1,26 @@
 import roleHarvester from "creeps/roles/role.harvester";
-
-
+import roleHauler from "creeps/roles/role.hauler";
+import roleUpgrader from "creeps/roles/role.upgrader";
 import { spawnScoreManager } from "managers/spawnScoreManager";
 
+interface BODY {
+    [bodyName: string]: BodyPartConstant[]
+}
+
 export function autoSpawn(room: Room) {
-    let creepsAssignedToSource = 0
-    let WalkableSpaces = 0
+    let creep: string | undefined = spawnScoreManager(room)
+    console.log(creep)
+    if (creep){
 
-    room.find(FIND_SOURCES).find((source) => {
-        creepsAssignedToSource += Memory.rooms[room.name].sources[source.id].creeps.length
-        WalkableSpaces += Memory.rooms[room.name].sources[source.id].openSpots
-    })
-
-    let spawns = room.find(FIND_MY_SPAWNS);
-    let creepBody = roleHarvester.getBody(room.energyCapacityAvailable)
-    let newName =  `Kipper Spawn: ${Game.time}`;
-
-    if (creepsAssignedToSource < WalkableSpaces){    
-        if (creepsAssignedToSource + (creepsAssignedToSource / 2) < WalkableSpaces) {
-            spawns[0].spawnCreep(creepBody, newName, {memory: {role: 'harvester', workRoom: room}})
-        } else {
-            spawns[0].spawnCreep(creepBody, newName, {memory: {role: 'upgrader', workRoom: room}})
+        const bodyLookup: BODY = {
+            "harvester": roleHarvester.getBody(room.energyCapacityAvailable),
+            "hauler": roleHauler.getBody(room.energyCapacityAvailable),
+            "upgrader": roleUpgrader.getBody(room.energyCapacityAvailable)
         }
+
+        let spawns = room.find(FIND_MY_SPAWNS);
+        let newName =  `Kipper Spawn: ${Game.time}${creep}`;
+        spawns[0].spawnCreep(bodyLookup[creep], newName, {memory: {role: creep, workRoom: room}})
     }
+
 }

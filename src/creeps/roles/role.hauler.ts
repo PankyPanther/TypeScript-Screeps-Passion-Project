@@ -2,6 +2,7 @@ import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
 import { store } from "creeps/actions/action.store";
 import { gather } from "creeps/actions/action.gather";
+import { findGatherPlace } from "creeps/subactions/findGatherPlace";
 
 // roleHarvester: CreepRole
 const roleHauler: CreepRole = {
@@ -22,9 +23,8 @@ const roleHauler: CreepRole = {
 
         const states = {
                 GATHERING: (data: any, creep: Creep) => {
-
                     if (!data.target){
-                        creep.memory.target
+                        creep.memory.target = findGatherPlace(creep)
                     }
 
                     if (creep.store.getFreeCapacity() == 0) { 
@@ -32,7 +32,7 @@ const roleHauler: CreepRole = {
                         return "STORING" 
                     }
 
-                    store(creep, {
+                    gather(creep, {
                         target: data.target
                     }) 
 
@@ -46,9 +46,7 @@ const roleHauler: CreepRole = {
                         return "GATHERING" 
                     }
 
-                    creep.say('gathering')
-
-                    gather(creep, {
+                    store(creep, {
                         sourceID: data.target
                     }) 
                     

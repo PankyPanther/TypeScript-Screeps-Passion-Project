@@ -3,7 +3,7 @@ declare global {
           role: string
           workRoom: Room
           sourceID?: Id<Source> | undefined
-          target?: number
+          target?: any
           path?: any
           previousPos?: any
     }

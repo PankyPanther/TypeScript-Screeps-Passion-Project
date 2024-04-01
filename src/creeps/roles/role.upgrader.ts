@@ -1,8 +1,8 @@
 import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
-import { harvest } from "creeps/actions/action.harvest"
-import { findValidSource } from "utils/findValidSource"
+import { findGatherPlace } from "creeps/subactions/findGatherPlace"
 import { upgrade } from "creeps/actions/action.upgrade"
+import { gather } from "creeps/actions/action.gather"
 
 // roleHarvester: CreepRole
 const roleUpgrader: CreepRole = {
@@ -20,38 +20,35 @@ const roleUpgrader: CreepRole = {
         // Define your states as functions
         const data = {
             controllerText: 'Save the trees you must not, but to be saved from them is a bigger problem',
-            sourceID: creep.memory.sourceID
+            target: creep.memory.target
         };
 
         const states = {
-                HARVESTING: (data: any, creep: Creep) => {
-                    creep.say('harvesting')
+                GATHERING: (data: any, creep: Creep) => {        
 
-                    if (!data.sourceID){
-                        creep.memory.sourceID = findValidSource(creep)
+                    if (!data.target){
+                        creep.memory.target = findGatherPlace(creep)
                     }
 
-                    if (creep.store.getFreeCapacity() == 0) {
-                        creep.memory.path = {} 
-                        return "UPGRADEING"
+                    if (creep.store.getFreeCapacity() == 0) { 
+                        creep.memory.path = {}
+                        return "UPGRADEING" 
                     }
 
-                    harvest(creep, {
-                        sourceID: data.sourceID
+                    gather(creep, {
+                        target: data.target
                     }) 
 
-                    return 'HARVESTING';
-                    
+                    return 'GATHERING';
                     
                 },
             
                 UPGRADEING: (data: any, creep: Creep) => {
                     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
                         creep.memory.path = {}
-                        return "HARVESTING" 
+                        return "GATHERING" 
                     }
 
-                    creep.say('upgrade')
                     upgrade(creep, {
                         controllerText: data.controllerText
                     })

@@ -5,7 +5,7 @@ const roleHome: RoomRole = {
     run: function(room) {
 
         if (Game.time % 10 === 0) {
-            autoSpawn(room)
+            // autoSpawn(room)
         }
         if (Game.time % 10 === 2) {
             //events

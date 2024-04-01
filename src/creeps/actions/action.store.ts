@@ -21,12 +21,12 @@ export function store(creep: Creep, data: any = {}) {
             return  
         } 
 
-        if (Game.time % 10 == 0 || creep.moveByPath(cachedPath) !== 0) {
+        if (creep.moveByPath(cachedPath) !== 0) {
             creep.memory.path = {}
             cachePath(creep, path)
             creep.moveByPath(cachedPath);
         }
 
-        creep.moveByPath(cachedPath);  ;        
+        creep.moveByPath(cachedPath);        
     }
 }

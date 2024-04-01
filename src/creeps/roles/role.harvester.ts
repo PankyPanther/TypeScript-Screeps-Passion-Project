@@ -1,8 +1,9 @@
 import { CreepRole } from "utils/definition"
 import { runStates } from "managers/state_manager"
 import { harvest } from "creeps/actions/action.harvest"
-import { findValidSource } from "utils/findValidSource"
+import { findValidSource } from "creeps/subactions/findValidSource"
 import { store } from "creeps/actions/action.store";
+import { drop } from "creeps/actions/action.drop";
 
 // roleHarvester: CreepRole
 const roleHarvester: CreepRole = {
@@ -26,11 +27,18 @@ const roleHarvester: CreepRole = {
                     // creep.say('harvesting')
                     
                     if (!data.sourceID){
-                        creep.memory.sourceID = findValidSource(creep)
+                        creep.memory.sourceID = findValidSource(creep.room, creep)
                     }
 
                     if (creep.store.getFreeCapacity() == 0) {
-                        creep.memory.path = {} 
+                        creep.memory.path = {}
+                        let hauler = null
+                        _.forEach(Memory.creeps, (creep) => {
+                            if (creep.role === 'hauler'){
+                                hauler = true
+                            }  
+                        })
+                        if (hauler) { return "DROPING" }
                         return "STORING"
                     }
 
@@ -54,6 +62,12 @@ const roleHarvester: CreepRole = {
                     
                     return "STORING"
                 },
+
+                DROPING: (data: any, creep: Creep) => {
+                    drop(creep)
+                    return "HARVESTING" 
+                }
+
         
         };
     
