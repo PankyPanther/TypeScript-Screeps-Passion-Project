@@ -28,13 +28,16 @@ export function spawnScoreManager(room: Room): string | undefined{
     let haulerAmount = 0
     let scoutAmount = 0
     let upgraderAmount = 0
-
+    let builderAmount = 0
     
 
     for (let creepName in Memory.creeps) {
         if (Memory.creeps.hasOwnProperty(creepName)) {
             let creep = Memory.creeps[creepName];
             switch (creep.role) {
+                case 'builder':
+                    builderAmount++;
+                    break;
                 case 'harvester':
                     harvesterAmount++;
                     break;
@@ -54,7 +57,7 @@ export function spawnScoreManager(room: Room): string | undefined{
         }
     }
 
-    let creepAmount = harvesterAmount + haulerAmount + scoutAmount + upgraderAmount 
+    let creepAmount = harvesterAmount + haulerAmount + scoutAmount + upgraderAmount + builderAmount
     let upgraderEnergyUse = upgraderAmount * 300
     // I plan for there to be more than 1 energy use so that why it looks a lil wonky
     let energyUse = upgraderEnergyUse
@@ -67,7 +70,6 @@ export function spawnScoreManager(room: Room): string | undefined{
     // console.log(maxPotentialEnergy, energyUse)
     //   console.log(`energy leftover: ${maxPotentialEnergy - energyUse}
     //                creeps: ${creepAmount}`)
-
     if ((maxPotentialEnergy == 0 || maxPotentialEnergy - 1000 < energyUse || creepAmount < 2) && findValidSource(room)){
         return 'harvester'
     }
@@ -75,11 +77,15 @@ export function spawnScoreManager(room: Room): string | undefined{
         return 'hauler'
     }
 
-    if (room.controller && room.controller.level > 1 && scoutAmount < 1){
+    else if (room.controller && room.controller.level > 1 && scoutAmount < 1){
         return 'scout'
     }
+
+    else if (room.find(FIND_CONSTRUCTION_SITES).length > 0 && builderAmount < 3){
+        return 'builder'
+    }
     
-    else if (maxPotentialEnergy - energyUse > 500){
+    else if (maxPotentialEnergy - energyUse > 700){
         return 'upgrader'
     }
 

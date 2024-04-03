@@ -1,5 +1,6 @@
 import { RoomRole } from "definition";
 import { autoSpawn } from "./Spawns/autoSpawn";
+import { countCreeps } from "Rooms/countCreeps";
 
 const roleHome: RoomRole = {
     run: function(room) {
@@ -7,7 +8,7 @@ const roleHome: RoomRole = {
             autoSpawn(room)
         }
         if (Game.time % 10 === 2) {
-            //events
+            countCreeps(room)
         }        
         if (Game.time % 10 === 4) {
             //sdirrectives

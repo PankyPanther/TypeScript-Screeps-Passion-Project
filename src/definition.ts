@@ -2,6 +2,7 @@ declare global {
     interface CreepMemory {
           role: string
           workRoom: Room
+          homeRoom: any
           sourceID?: Id<Source> | undefined
           target?: any
           path?: any
@@ -18,6 +19,7 @@ declare global {
     interface RoomMemory {
         sources: {[sourceID: Id<Source>]: SourceMemory}
         role: string
+        creepCounter?: {[roleName: string]: number}
         status?: string
         lastEntered?: number
     }

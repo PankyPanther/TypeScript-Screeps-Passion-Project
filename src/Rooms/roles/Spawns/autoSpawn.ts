@@ -1,3 +1,4 @@
+import roleBuilder from "creeps/roles/role.builder";
 import roleHarvester from "creeps/roles/role.harvester";
 import roleHauler from "creeps/roles/role.hauler";
 import roleScout from "creeps/roles/role.scout";
@@ -14,6 +15,7 @@ export function autoSpawn(room: Room) {
     if (creep){
 
         const bodyLookup: BODY = {
+            "builder": roleBuilder.getBody(room.energyCapacityAvailable),
             "harvester": roleHarvester.getBody(room.energyCapacityAvailable),
             "hauler": roleHauler.getBody(room.energyCapacityAvailable),
             "scout": roleScout.getBody(room.energyCapacityAvailable),
@@ -22,7 +24,7 @@ export function autoSpawn(room: Room) {
 
         let spawns = room.find(FIND_MY_SPAWNS);
         let newName =  `Kipper Spawn: ${Game.time}${creep}`;
-        spawns[0].spawnCreep(bodyLookup[creep], newName, {memory: {role: creep, workRoom: room}})
+        spawns[0].spawnCreep(bodyLookup[creep], newName, {memory: {role: creep, workRoom: room, homeRoom: room.name}})
     }
 
 }

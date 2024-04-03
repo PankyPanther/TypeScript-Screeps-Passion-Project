@@ -18,7 +18,6 @@ export function getNearbyPositions(roomPOS: RoomPosition) {
 
 export function findOpenSourceSpaces(source: Source): number {
     let nearByPositions = getNearbyPositions(source.pos)
-    console.log(nearByPositions)
     let terrain = Game.map.getRoomTerrain(source.room.name)
     let openSpaces = _.filter(nearByPositions, function(pos){
         return terrain.get(pos.x, pos.y) != TERRAIN_MASK_WALL
