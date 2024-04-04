@@ -4,12 +4,20 @@ import { harvest } from "creeps/actions/action.harvest"
 import { findValidSource } from "creeps/subactions/findValidSource"
 import { store } from "creeps/actions/action.store";
 import { drop } from "creeps/actions/action.drop";
+import { countCreeps } from "utils/countCreeps";
 
 // roleHarvester: CreepRole
 const roleHarvester: CreepRole = {
     getRoleName() { return 'harvester'; },
 
     getBody(energyCapacity) {
+        if (energyCapacity >= 550 && countCreeps('hauler') > 1) {
+            return [
+                WORK, WORK,
+                WORK, WORK,
+                WORK, MOVE,
+            ]
+        }
         return [
             MOVE, MOVE,
             WORK, CARRY
@@ -32,16 +40,7 @@ const roleHarvester: CreepRole = {
 
                     if (creep.store.getFreeCapacity() == 0) {
                         creep.memory.path = {}
-                        let hauler = null
-                        for (let creepName in Memory.creeps) {
-                            if (Memory.creeps.hasOwnProperty(creepName)) {
-                                let creep = Memory.creeps[creepName];
-                                if (creep.role === 'hauler') {
-                                    hauler = true;
-                                }
-                            }
-                        }
-                        if (hauler) { return "DROPING" }
+                        if (countCreeps('hauler') > 1) { return "DROPING" }
                         return "STORING"
                     }
 

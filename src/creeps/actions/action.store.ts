@@ -17,26 +17,16 @@ export function store(creep: Creep, data: any = {}) {
 
 
 
-    const extensions = creep.room.find(FIND_STRUCTURES, {
-        filter: { structureType: STRUCTURE_EXTENSION }
-    }) as StructureExtension[];
-    let leastEnergyExtension: StructureExtension | null = null;
-    let leastEnergy = Infinity;
-
-    extensions.forEach(extension => {
-        const energy = extension.store.getUsedCapacity(RESOURCE_ENERGY);
-        if (energy < leastEnergy) {
-            leastEnergy = energy;
-            leastEnergyExtension = extension;
-        }
+    let extensions = creep.room.find(FIND_STRUCTURES).filter((extension) => {
+        return extension.structureType === STRUCTURE_EXTENSION && extension.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     });
 
-    if (leastEnergyExtension && spawn.store.energy < 50){
-        if (creep.transfer(leastEnergyExtension, RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) {
-            creep.transfer(leastEnergyExtension, RESOURCE_ENERGY);
+    if (extensions){
+        if (creep.transfer(extensions[0], RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) {
+            creep.transfer(extensions[0], RESOURCE_ENERGY);
             return
         } else {
-            moveToLocation(creep, spawn)
+            moveToLocation(creep, extensions[0])
             return
         }
     }

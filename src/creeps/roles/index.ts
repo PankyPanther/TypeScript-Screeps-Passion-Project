@@ -31,6 +31,7 @@ export function runCreepRole(creep: Creep) {
     if (ROLES[role]) {
         ROLES[role].run(creep)
     } else {
-        console.log(`No role defined for Creep: ${creep.name}`)
+        console.log(`No role defined for Creep: ${creep.name}: killing creep`)
+        creep.suicide()
     }
 }

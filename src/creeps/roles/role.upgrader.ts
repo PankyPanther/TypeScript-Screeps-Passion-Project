@@ -9,10 +9,19 @@ const roleUpgrader: CreepRole = {
     getRoleName() { return 'upgrader'; },
 
     getBody(energyCapacity) {
+        if (energyCapacity >= 550) {
+            return [
+                WORK, WORK,
+                WORK, MOVE,
+                MOVE, CARRY,
+                CARRY, CARRY
+            ]
+        }
         return [
             MOVE, MOVE,
             WORK, CARRY
         ]
+
     },
 
     run: function(creep) {

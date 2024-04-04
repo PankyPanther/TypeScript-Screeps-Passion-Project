@@ -1,15 +1,12 @@
 export function findValidRoom(creep: Creep) {
     let currentRoomName = creep.room.name;
 
-    // Step 2: Determine Neighboring Rooms
     let exits = Game.map.describeExits(currentRoomName);
-    let adjacentRooms: string[] = Object.values(exits); // Array of neighboring room names
+    let adjacentRooms: string[] = Object.values(exits); 
     
-    // Step 3: Filter out already explored rooms
     let unexploredRooms = adjacentRooms.filter(roomName => !Memory.rooms[roomName]);
     
-    // Step 4: Calculate distance to the home room for each neighboring room
-    let homeRoom = creep.memory.homeRoom; // Assuming 'Spawn1' is your spawn room
+    let homeRoom = creep.memory.homeRoom; 
     let sortedRooms = unexploredRooms.sort((roomA, roomB) => {
         let routeA = Game.map.findRoute(homeRoom, roomA);
         let distanceA = routeA === -2 ? Infinity : routeA.length;
@@ -22,7 +19,7 @@ export function findValidRoom(creep: Creep) {
     
     // Step 5: Check If Room Exists
     for (let roomName of sortedRooms) {
-        if (Game.map.isRoomAvailable(roomName)) {
+        if (Game.map.getRoomStatus(roomName)) {
             // Room is available, you can navigate to it
             return roomName; // Return the first available room after exploration
         } else {
@@ -30,6 +27,5 @@ export function findValidRoom(creep: Creep) {
         }
     }
 
-    // If all neighboring rooms are unavailable, return null or undefined
     return null;
 }

@@ -1,4 +1,10 @@
 declare global {
+    interface Memory {
+        GameStats: object
+    }
+}
+
+declare global {
     interface CreepMemory {
           role: string
           workRoom: Room
@@ -35,3 +41,12 @@ export interface CreepRole {
 export interface RoomRole {
     run(room: Room): void
 }
+
+
+declare global {
+    const WhiteList: string[];
+}
+
+
+export const WhiteList: string[] = ["BobGuo"];
+

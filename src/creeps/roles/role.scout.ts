@@ -24,10 +24,6 @@ const roleScout: CreepRole = {
                     if (!data.target || creep.room.name == data.target){
                         creep.memory.target = findValidRoom(creep); 
                     }
-                    console.log(creep.room.name == data.target, creep.room.name == data.target.name, creep.room == data.target)
-                    console.log(creep.room.name, data.target, data.target.name)
-                    console.log(data.target)
-                    creep.suicide()
                     explore(creep, {
                         target: data.target
                     })

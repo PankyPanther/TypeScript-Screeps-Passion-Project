@@ -1,7 +1,3 @@
-import { moveToLocation } from "creeps/PathFinding/moveToLocation";
-import { findValidRoom } from "creeps/subactions/findValidRoom";
-import { copyFileSync } from "fs";
-
 export function explore(creep: Creep, data: any = {}){
     const targetRoom = data.target;
 
@@ -13,6 +9,17 @@ export function explore(creep: Creep, data: any = {}){
         const exit = creep.pos.findClosestByPath(route[0].exit) as RoomPosition | undefined;
         if (exit) {
             creep.moveTo(exit, { visualizePathStyle: { stroke: '#ffffff' } });
+        }
+    }
+
+    if (creep.room.memory.role == "explored"){
+        creep.room.memory.lastEntered = Game.time
+
+        if (creep.room.find(FIND_HOSTILE_STRUCTURES)){
+            creep.room.memory.status = 'hostile'
+        }
+        if (creep.room.find(FIND_HOSTILE_CREEPS).length > 0 || creep.room.find(FIND_HOSTILE_POWER_CREEPS).length > 0){
+            creep.room.memory.status = 'hostileCreeps'
         }
     }
 }
