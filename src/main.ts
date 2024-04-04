@@ -23,6 +23,11 @@ export function loop(): void {
     }
   }
 
+  
+  if (!Memory.GameStats){
+    initializeGameStats()
+  }
+
   for (let creepName in Game.creeps) {
       let creep = Game.creeps[creepName]
       runCreepRole(creep)
@@ -34,9 +39,5 @@ export function loop(): void {
       initialize(room)
     }
     runRoomRole(room);
-  }
-
-  if (!Memory.GameStats){
-    initializeGameStats()
   }
 }

@@ -1,6 +1,5 @@
 import { RoomRole } from "definition";
 import { autoSpawn } from "./Spawns/autoSpawn";
-import { WhiteList } from "definition";
 import { countCreeps } from "utils/GameStats/countCreeps";
 import { countRoleParts } from "utils/GameStats/countRoleParts";
 
