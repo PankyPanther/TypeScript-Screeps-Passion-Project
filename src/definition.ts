@@ -1,6 +1,27 @@
+export interface creepRoleParts{
+    [bodyPart: string]: number
+}
+
+interface GameStatsMemory {
+    creepCount: {[roleName: string]: number}
+    creepRolePartCount: {[roleName: string]: creepRoleParts}
+    needRemote: boolean
+}
+
+export const bodyParts: Record<BodyPartConstant, any> = {
+    move: null,
+    work: null,
+    carry: null,
+    attack: null,
+    ranged_attack: null,
+    heal: null,
+    claim: null,
+    tough: null
+};
+
 declare global {
     interface Memory {
-        GameStats: object
+        GameStats: GameStatsMemory
     }
 }
 

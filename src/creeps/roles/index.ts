@@ -11,7 +11,7 @@ interface RoleLookup {
     [roleName: string]: CreepRole
 }
 
-const ROLES: RoleLookup = {
+export const ROLES: RoleLookup = {
     'builder': roleBuilder,
     'harvester': roleHarvester,
     'hauler': roleHauler,
