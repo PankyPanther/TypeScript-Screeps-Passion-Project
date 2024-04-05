@@ -9,6 +9,16 @@ const roleHauler: CreepRole = {
     getRoleName() { return 'hauler'; },
 
     getBody(energyCapacity) {
+        if (energyCapacity >= 500) {
+            return [
+                MOVE, MOVE,
+                MOVE, MOVE,
+                MOVE, CARRY,
+                CARRY, CARRY,
+                CARRY, CARRY
+            ]
+        }
+
         return [
             MOVE, MOVE,
             CARRY, CARRY

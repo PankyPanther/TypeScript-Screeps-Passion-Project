@@ -1,8 +1,10 @@
+import { findAdjacentRooms } from "./findAdjacentRooms";
+
 export function findValidRoom(creep: Creep) {
     let currentRoomName = creep.room.name;
 
     let exits = Game.map.describeExits(currentRoomName);
-    let adjacentRooms: string[] = Object.values(exits); 
+    let adjacentRooms: string[] = findAdjacentRooms(currentRoomName, 1); 
     
     let unexploredRooms = adjacentRooms.filter(roomName => !Memory.rooms[roomName]);
     

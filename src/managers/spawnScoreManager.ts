@@ -12,12 +12,12 @@ export function spawnScoreManager(room: Room): string | undefined{
     let creepAmount = harvesterAmount + haulerAmount + scoutAmount + upgraderAmount + builderAmount
     
     let upgraderEnergyUse = Memory.GameStats.creepRolePartCount.upgrader.work * 300
-    let builderEnergyUse = Memory.GameStats.creepRolePartCount.builder.work * 300 * 5 // multiplied by 5 because each work part does 5 energy per tick
+    let builderEnergyUse = Memory.GameStats.creepRolePartCount.builder.work * 300  // multiplied by 5 because each work part does 5 energy per tick
     let energyUse = upgraderEnergyUse + builderEnergyUse
 
     console.log('energy: ', maxPotentialEnergy - energyUse)
 
-    let energyAmount = maxPotentialEnergy - energyUse
+    let energyAmount = maxPotentialEnergy - energyUse - 600 //buffer
 
     if ((maxPotentialEnergy == 0 || maxPotentialEnergy - 1000 < energyUse || creepAmount < 2)){
         if (findValidSource(room)){
@@ -26,7 +26,7 @@ export function spawnScoreManager(room: Room): string | undefined{
 
         }
     }
-    else if (harvesterAmount > (haulerAmount * 2)){
+    else if (harvesterAmount < Math.floor(haulerAmount / 2)){
         return 'hauler'
     }
 
@@ -34,7 +34,7 @@ export function spawnScoreManager(room: Room): string | undefined{
     //     return 'scout'
     // }
 
-    else if (room.find(FIND_CONSTRUCTION_SITES).length > 0 && builderAmount < 3 && upgraderAmount > 0 && energyAmount > 0){
+    else if (room.find(FIND_CONSTRUCTION_SITES).length > 0 && builderAmount < 4 && upgraderAmount > 1 && energyAmount > 0){
         return 'builder'
     }
     

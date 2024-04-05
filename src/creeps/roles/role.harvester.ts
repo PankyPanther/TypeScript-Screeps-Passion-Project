@@ -18,6 +18,13 @@ const roleHarvester: CreepRole = {
                 WORK, MOVE,
             ]
         }
+        else if (energyCapacity >= 400 && Memory.GameStats.creepCount.hauler > 1) {
+            return [
+                WORK, WORK,
+                WORK, MOVE,
+                MOVE
+            ]
+        }
         return [
             MOVE, MOVE,
             WORK, CARRY
