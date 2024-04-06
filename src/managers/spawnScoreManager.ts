@@ -37,7 +37,7 @@ export function spawnScoreManager(room: Room): string | undefined{
         return 'repairer'
     }
 
-    else if (energyAmount > 0 && Memory.GameStats.creepRolePartCount.upgrader.work < 20){
+    else if (energyAmount > 0 && Memory.GameStats.creepRolePartCount.upgrader.work < 30){
         return 'upgrader'
     }
     

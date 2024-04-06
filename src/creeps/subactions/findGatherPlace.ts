@@ -1,4 +1,3 @@
-import { drop } from "lodash"
 
 export function findGatherPlace(creep: Creep) {
     let droppedSource = creep.room.find(FIND_DROPPED_RESOURCES).sort((a, b) => b.amount - a.amount)[0]
@@ -10,15 +9,12 @@ export function findGatherPlace(creep: Creep) {
     let container = containers.sort((a, b) => b.store.energy - a.store.energy)[0]
 
 
-    if (droppedSource.amount > container.store.energy){
-        // console.log('dropped', droppedSource.pos)
+    if (droppedSource && droppedSource.amount > container.store.energy){
         return droppedSource
+        
     }
     else if (container){
-        // console.log('container')
-        return creep.memory.target = container
+        return container
     } 
-    else {
-        return undefined
-    }
+    return undefined
 }

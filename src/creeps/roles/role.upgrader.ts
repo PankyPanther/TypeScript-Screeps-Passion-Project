@@ -35,7 +35,7 @@ const roleUpgrader: CreepRole = {
         const states = {
                 GATHERING: (data: any, creep: Creep) => {        
 
-                    if (!data.target || data.target == undefined || !Game.getObjectById(data.target.id)){
+                    if (!data.target){
                         creep.memory.target = findGatherPlace(creep)
                     }
 

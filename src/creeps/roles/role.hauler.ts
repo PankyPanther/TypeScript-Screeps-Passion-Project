@@ -34,7 +34,7 @@ const roleHauler: CreepRole = {
         const states = {
                 GATHERING: (data: any, creep: Creep) => {
                     // console.log(data.target)
-                    if (!data.target || data.target == undefined || !Game.getObjectById(data.target.id)){
+                    if (!data.target){
                         // console.log(findGatherPlace(creep))
                         creep.memory.target = findGatherPlace(creep)
                     }

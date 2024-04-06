@@ -1,6 +1,23 @@
 import { moveToLocation } from "creeps/PathFinding/moveToLocation";
 
-export function store(creep: Creep, data: any = {}) { 
+export function store(creep: Creep, data: any = {}) {
+    let towers = creep.room.find(FIND_STRUCTURES).filter((tower) => {
+        return tower.structureType === STRUCTURE_TOWER && tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+    })
+
+    if (towers.length){
+        let tower = towers[0]
+        if (creep.transfer(tower, RESOURCE_ENERGY) != ERR_NOT_IN_RANGE) {
+            creep.transfer(tower, RESOURCE_ENERGY);
+            return
+        } else {
+            moveToLocation(creep, tower)
+            return
+        }
+    }
+
+    console.log(towers[0].pos)
+
     let extensions = creep.room.find(FIND_STRUCTURES).filter((extension) => {
         return extension.structureType === STRUCTURE_EXTENSION && extension.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     });

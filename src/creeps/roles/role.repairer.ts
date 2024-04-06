@@ -51,13 +51,19 @@ const roleRepairer: CreepRole = {
 
             REPAIRING: (data: any, creep: Creep) =>{
                 if (!data.target){
-                    creep.memory.target = creep.room.find(FIND_STRUCTURES)
+                    let structure = creep.room.find(FIND_STRUCTURES)
                         .filter((struct) => {
-                            return struct.structureType == STRUCTURE_CONTAINER || struct.structureType == STRUCTURE_ROAD
+                            return struct.hits < struct.hitsMax && (struct.structureType == STRUCTURE_CONTAINER || struct.structureType == STRUCTURE_ROAD) 
                         })
-                        .sort((a, b) => (a.hits / a.hitsMax) - (b.hits /b.hitsMax))[0]
+                        .sort((a, b) => (a.hits / a.hitsMax) - (b.hits / b.hitsMax))[0]
+
+                    creep.memory.target = structure
                 }
 
+                if (data.target.hits === data.target.hitsMax){
+                    delete creep.memory.target
+                }
+                
                 if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
                     creep.memory.target = {}
                     creep.memory.path = {}
