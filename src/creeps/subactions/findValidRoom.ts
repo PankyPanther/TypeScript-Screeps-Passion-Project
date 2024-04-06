@@ -18,6 +18,8 @@ export function findValidRoom(creep: Creep) {
         
         return distanceA - distanceB;
     });
+
+    // let oldestCheckedRoom = adjacentRooms.sort((roomA, roomB) => roomB - roomA);
     
     // Step 5: Check If Room Exists
     for (let roomName of sortedRooms) {
@@ -29,5 +31,5 @@ export function findValidRoom(creep: Creep) {
         }
     }
 
-    return null;
+    return null
 }

@@ -4,6 +4,8 @@ import { countCreeps } from "utils/GameStats/countCreeps";
 import { countRoleParts } from "utils/GameStats/countRoleParts";
 import { findValidRemote } from "creeps/subactions/findValidRemote";
 
+import { findAdjacentRooms } from "creeps/subactions/findAdjacentRooms";
+
 const roleHome: RoomRole = {
     run: function(room) {
         if (Game.time % 10 === 0) {
@@ -17,7 +19,7 @@ const roleHome: RoomRole = {
         }
         if (Game.time % 10 === 7) {
             if (Memory.GameStats.needRemote) {
-                console.log(findValidRemote(room), 'room')
+                // console.log(findValidRemote(room), 'room')
             }
         }
     }

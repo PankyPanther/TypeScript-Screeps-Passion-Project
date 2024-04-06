@@ -27,6 +27,9 @@ export function countCreeps(){
                     case 'remoteHauler':
                         Memory.GameStats.creepCount.remoteHauler++;
                         break;
+                    case 'repairer':
+                        Memory.GameStats.creepCount.repairer++;
+                        break;
                     case 'scout':
                         Memory.GameStats.creepCount.scout++;
                         break;

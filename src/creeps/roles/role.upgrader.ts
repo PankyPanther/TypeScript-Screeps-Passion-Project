@@ -35,11 +35,12 @@ const roleUpgrader: CreepRole = {
         const states = {
                 GATHERING: (data: any, creep: Creep) => {        
 
-                    if (!data.target){
+                    if (!data.target || data.target == undefined || !Game.getObjectById(data.target.id)){
                         creep.memory.target = findGatherPlace(creep)
                     }
 
                     if (creep.store.getFreeCapacity() == 0) { 
+                        creep.memory.target = {}
                         creep.memory.path = {}
                         return "UPGRADEING" 
                     }
@@ -54,6 +55,7 @@ const roleUpgrader: CreepRole = {
             
                 UPGRADEING: (data: any, creep: Creep) => {
                     if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
+                        creep.memory.target = {}
                         creep.memory.path = {}
                         return "GATHERING" 
                     }

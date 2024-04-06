@@ -1,6 +1,7 @@
 import roleBuilder from "creeps/roles/role.builder";
 import roleHarvester from "creeps/roles/role.harvester";
 import roleHauler from "creeps/roles/role.hauler";
+import roleRepairer from "creeps/roles/role.repairer";
 import roleScout from "creeps/roles/role.scout";
 import roleUpgrader from "creeps/roles/role.upgrader";
 import { spawnScoreManager } from "managers/spawnScoreManager";
@@ -18,6 +19,7 @@ export function autoSpawn(room: Room) {
             "builder": roleBuilder.getBody(room.energyCapacityAvailable),
             "harvester": roleHarvester.getBody(room.energyCapacityAvailable),
             "hauler": roleHauler.getBody(room.energyCapacityAvailable),
+            "repairer": roleRepairer.getBody(room.energyCapacityAvailable),
             "scout": roleScout.getBody(room.energyCapacityAvailable),
             "upgrader": roleUpgrader.getBody(room.energyCapacityAvailable),
         }

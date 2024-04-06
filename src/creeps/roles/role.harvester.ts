@@ -4,21 +4,20 @@ import { harvest } from "creeps/actions/action.harvest"
 import { findValidSource } from "creeps/subactions/findValidSource"
 import { store } from "creeps/actions/action.store";
 import { drop } from "creeps/actions/action.drop";
-import { countCreeps } from "utils/GameStats/countCreeps";
 
 // roleHarvester: CreepRole
 const roleHarvester: CreepRole = {
     getRoleName() { return 'harvester'; },
 
     getBody(energyCapacity) {
-        if (energyCapacity >= 550 && Memory.GameStats.creepCount.hauler > 1) {
+        if (energyCapacity >= 550 && Memory.GameStats.creepCount.hauler > 0) {
             return [
                 WORK, WORK,
                 WORK, WORK,
                 WORK, MOVE,
             ]
         }
-        else if (energyCapacity >= 400 && Memory.GameStats.creepCount.hauler > 1) {
+        else if (energyCapacity >= 400 && Memory.GameStats.creepCount.hauler > 0) {
             return [
                 WORK, WORK,
                 WORK, MOVE,
@@ -47,10 +46,17 @@ const roleHarvester: CreepRole = {
 
                     if (creep.store.getFreeCapacity() == 0) {
                         creep.memory.path = {}
-                        if (Memory.GameStats.creepCount.hauler > 1) { return "DROPING" }
-                        return "STORING"
+                        if (Memory.GameStats.creepCount.hauler > 0) { 
+                            creep.say('dropping')
+                            return "DROPING" 
+                        }
+                        else {
+                            creep.say('storing')
+                            return "STORING"
+                        }
                     }
 
+                    creep.say('harvesting')
                     harvest(creep, {
                         sourceID: data.sourceID
                     }) 
@@ -75,9 +81,7 @@ const roleHarvester: CreepRole = {
                 DROPING: (data: any, creep: Creep) => {
                     drop(creep)
                     return "HARVESTING" 
-                }
-
-        
+                },
         };
     
         runStates(states, data, creep);

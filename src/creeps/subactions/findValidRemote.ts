@@ -6,9 +6,8 @@ export function findValidRemote(homeRoom: Room): string | undefined{
         if (!Memory.rooms[room].status) {
             let adjacentRooms = findAdjacentRooms(homeRoom.name, 1)
             for (let adjacentRoom in adjacentRooms){
-                console.log(adjacentRoom, room)
-                if (adjacentRoom === room){
-                    return adjacentRoom
+                if (adjacentRooms[adjacentRoom] === room){
+                    return room
                 }
             }
         }

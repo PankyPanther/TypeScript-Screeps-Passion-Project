@@ -6,6 +6,7 @@ import roleScout from './role.scout';
 import roleremoteHarvester from './role.remoteHarvester';
 import roleremoteHauler from './role.remoteHauler';
 import roleBuilder from './role.builder';
+import roleRepairer from './role.repairer';
 
 interface RoleLookup {
     [roleName: string]: CreepRole
@@ -17,6 +18,7 @@ export const ROLES: RoleLookup = {
     'hauler': roleHauler,
     'remoteHarvester': roleremoteHarvester,
     'remoteHauler': roleremoteHauler,
+    'repairer': roleRepairer,
     'scout': roleScout,
     'upgrader': roleUpgrader,
 };

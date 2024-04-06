@@ -17,6 +17,6 @@ export function findAdjacentRooms(startingRoom: string, radius: number): string[
     
     findRoomsWithinRadius(startingRoom, radius);
     
-    console.log(roomsAroundStartingRoom)
+    // console.log(roomsAroundStartingRoom)
     return roomsAroundStartingRoom;
 }
