@@ -16,8 +16,6 @@ export function store(creep: Creep, data: any = {}) {
         }
     }
 
-    console.log(towers[0].pos)
-
     let extensions = creep.room.find(FIND_STRUCTURES).filter((extension) => {
         return extension.structureType === STRUCTURE_EXTENSION && extension.store.getFreeCapacity(RESOURCE_ENERGY) > 0
     });

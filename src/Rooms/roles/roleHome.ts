@@ -5,6 +5,7 @@ import { countRoleParts } from "utils/GameStats/countRoleParts";
 import { findValidRemote } from "creeps/subactions/findValidRemote";
 
 import { findAdjacentRooms } from "creeps/subactions/findAdjacentRooms";
+import { towerManager } from "managers/towerManager";
 
 const roleHome: RoomRole = {
     run: function(room) {
@@ -20,6 +21,16 @@ const roleHome: RoomRole = {
         if (Game.time % 10 === 7) {
             if (Memory.GameStats.needRemote) {
                 // console.log(findValidRemote(room), 'room')
+            }
+        }
+        if (Game.time % 10 === 8) {
+            let towers = room.find(FIND_STRUCTURES).filter((tower) => {
+                return tower.structureType === STRUCTURE_TOWER && tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+            }) as StructureTower[]
+            if (towers.length){
+                for (let tower of towers){
+                    towerManager(room, tower)
+                }
             }
         }
     }

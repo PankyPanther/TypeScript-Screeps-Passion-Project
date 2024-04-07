@@ -56,14 +56,9 @@ const roleRepairer: CreepRole = {
                             return struct.hits < struct.hitsMax && (struct.structureType == STRUCTURE_CONTAINER || struct.structureType == STRUCTURE_ROAD) 
                         })
                         .sort((a, b) => (a.hits / a.hitsMax) - (b.hits / b.hitsMax))[0]
-
-                    creep.memory.target = structure
+                    creep.memory.target = structure.id
                 }
 
-                if (data.target.hits === data.target.hitsMax){
-                    delete creep.memory.target
-                }
-                
                 if (creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
                     creep.memory.target = {}
                     creep.memory.path = {}
