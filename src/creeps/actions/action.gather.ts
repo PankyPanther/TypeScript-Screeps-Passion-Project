@@ -15,7 +15,7 @@ export function gather(creep: Creep, data: any = {}) {
                         creep.pickup(target)
                         return
                     }
-                    moveToLocation(creep, target)
+                    moveToLocation(creep, creep.room.name, target)
                 } else {
                     delete creep.memory.target
                     return
@@ -30,7 +30,7 @@ export function gather(creep: Creep, data: any = {}) {
                         creep.withdraw(target, RESOURCE_ENERGY)
                         return
                     }
-                    moveToLocation(creep, target)
+                    moveToLocation(creep, creep.room.name, target)
                     return
                 } else {
                     delete creep.memory.target

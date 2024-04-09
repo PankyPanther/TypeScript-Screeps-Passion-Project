@@ -28,4 +28,6 @@ export function initialize(room: Room): void {
     } else {
         room.memory.role = 'explored'
     }
+
+    room.memory.lastEntered = Game.time
 }

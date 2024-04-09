@@ -9,6 +9,15 @@ import { towerManager } from "managers/towerManager";
 
 const roleHome: RoomRole = {
     run: function(room) {
+        let towers = room.find(FIND_STRUCTURES).filter((tower) => {
+            return tower.structureType === STRUCTURE_TOWER && tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+        }) as StructureTower[]
+        if (towers.length){
+            for (let tower of towers){
+                towerManager(room, tower)
+            }
+        }
+
         if (Game.time % 10 === 0) {
             autoSpawn(room)
         }
@@ -20,18 +29,11 @@ const roleHome: RoomRole = {
         }
         if (Game.time % 10 === 7) {
             if (Memory.GameStats.needRemote) {
-                // console.log(findValidRemote(room), 'room')
+                // console.log(findValidRemote(room.name), 'room')
             }
         }
         if (Game.time % 10 === 8) {
-            let towers = room.find(FIND_STRUCTURES).filter((tower) => {
-                return tower.structureType === STRUCTURE_TOWER && tower.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-            }) as StructureTower[]
-            if (towers.length){
-                for (let tower of towers){
-                    towerManager(room, tower)
-                }
-            }
+
         }
     }
 };

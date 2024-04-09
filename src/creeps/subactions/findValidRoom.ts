@@ -1,7 +1,10 @@
 import { restParam } from "lodash";
 import { findAdjacentRooms } from "./findAdjacentRooms";
+import { findValidRemote } from "./findValidRemote";
+import { copyFileSync, rmdir } from "fs";
 
 export function findValidRoom(creep: Creep) {
+
     let currentRoomName = creep.room.name;
 
     let exits = Game.map.describeExits(currentRoomName);
@@ -20,7 +23,6 @@ export function findValidRoom(creep: Creep) {
         return distanceA - distanceB;
     });
 
-    // let oldestCheckedRoom = adjacentRooms.sort((roomA, roomB) => roomB - roomA);
     
     // Step 5: Check If Room Exists
     for (let roomName of sortedRooms) {
@@ -31,6 +33,38 @@ export function findValidRoom(creep: Creep) {
             // Room is not available (e.g., it's owned by another player)
         }
     }
+    
+    // let oldestCheckedRoom
+    // for(let room in Memory.rooms){
+    //     if(Memory.rooms[room].role === 'explored'){
+    //         // if(Memory.rooms[room].status === 'hostileCreeps' || Memory.rooms[room].status === 'hostileCreeps'){
+    //         //   console.log(oldestCheckedRoom, Memory.rooms[room])
+    //           if (oldestCheckedRoom && Memory.rooms[room]){
+    //             console.log(Game.time - Memory.rooms[room].lastEntered, room)
+    //               if (oldestCheckedRoom.lastEntered < Memory.rooms[room].lastEntered){
+    //                 // console.log(room)
+    //                 oldestCheckedRoom = Memory.rooms[room]
+    //                 oldestCheckedRoom.name = room
+    //               } 
+    //           } else {
+    //             oldestCheckedRoom = Memory.rooms[room]
+    //             oldestCheckedRoom.name = room
+    //           }
+    //         // }
+    //     }
+    // } 
 
-    return null
+    // if (oldestCheckedRoom){
+    //     console.log('oldest', oldestCheckedRoom.name)
+    //     return oldestCheckedRoom.name
+    // }
+
+    let remote = findValidRemote(creep.memory.homeRoom.name)
+    
+    if (remote?.length){
+        console.log(remote, 'rem')
+        return (`${remote}`)
+    }
+
+    return undefined
 }

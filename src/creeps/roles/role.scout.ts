@@ -8,6 +8,15 @@ const roleScout: CreepRole = {
     getRoleName() { return 'scout'; },
 
     getBody(energyCapacity) {
+        if (energyCapacity >= 500) {
+            return [
+                MOVE, MOVE,
+                MOVE, MOVE,
+                MOVE, MOVE,
+                MOVE, MOVE,
+                MOVE, MOVE
+            ]
+        }
         return [
             MOVE, MOVE
         ]
@@ -20,9 +29,10 @@ const roleScout: CreepRole = {
         };
 
         const states = {
-                EXPLORING: (data: any, creep: Creep) => { 
-                    if (!data.target || creep.room.name == data.target){
+                EXPLORING: (data: any, creep: Creep) => {
+                    if (!data.target){
                         creep.memory.target = findValidRoom(creep); 
+                        // console.log(findValidRoom(creep))
                     }
                     explore(creep, {
                         target: data.target

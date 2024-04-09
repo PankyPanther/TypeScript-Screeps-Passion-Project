@@ -48,7 +48,8 @@ declare global {
         role: string
         creepCounter?: {[roleName: string]: number}
         status?: string
-        lastEntered?: number
+        lastEntered: number
+        name?: string
     }
 }
 

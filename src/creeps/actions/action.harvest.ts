@@ -10,7 +10,7 @@ export function harvest(creep: Creep, data: any = {}) {
             creep.withdraw(ruins[0], RESOURCE_ENERGY);
             return;
         }
-        moveToLocation(creep, ruins[0]);
+        moveToLocation(creep, creep.room.name, ruins[0]);
         return; 
     }
 
@@ -22,11 +22,13 @@ export function harvest(creep: Creep, data: any = {}) {
         })
     
         if(container[0]){
-            if (creep.pos.x != container[0].pos.x && creep.pos.y != container[0].pos.y){
+            if ((creep.pos.x != container[0].pos.x || creep.pos.y != container[0].pos.y)){
                 creep.say('moving Con')
-                moveToLocation(creep, container[0])
+                moveToLocation(creep, creep.room.name, container[0])
                 return
             }
+        } else {
+            moveToLocation(creep, creep.room.name, storedSource)
         }
 
         if (creep.harvest(storedSource) != ERR_NOT_IN_RANGE) {
@@ -34,7 +36,6 @@ export function harvest(creep: Creep, data: any = {}) {
             return
         }
 
-        moveToLocation(creep, storedSource)
         return     
     }
 }

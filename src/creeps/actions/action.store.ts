@@ -11,7 +11,7 @@ export function store(creep: Creep, data: any = {}) {
             creep.transfer(tower, RESOURCE_ENERGY);
             return
         } else {
-            moveToLocation(creep, tower)
+            moveToLocation(creep, creep.room.name, tower)
             return
         }
     }
@@ -26,7 +26,7 @@ export function store(creep: Creep, data: any = {}) {
             creep.transfer(extension, RESOURCE_ENERGY);
             return
         } else {
-            moveToLocation(creep, extensions[0])
+            moveToLocation(creep, creep.room.name, extensions[0])
             return
         }
     }
@@ -40,7 +40,7 @@ export function store(creep: Creep, data: any = {}) {
             creep.transfer(spawn, RESOURCE_ENERGY);
             return
         } else {
-            moveToLocation(creep, spawn)
+            moveToLocation(creep, creep.room.name, spawn)
             return
         }
     }

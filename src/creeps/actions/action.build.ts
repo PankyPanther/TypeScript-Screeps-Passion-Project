@@ -9,7 +9,7 @@ export function build(creep: Creep, data: any = {}) {
             return
         }
 
-        moveToLocation(creep, spot)       
+        moveToLocation(creep, creep.room.name, spot)       
     } else {
         creep.memory.role = 'upgrader'
         creep.memory.runState = 'UPGRADEING'

@@ -10,7 +10,7 @@ export function upgrade(creep: Creep, data: any = {}) {
             return
         }         
         
-        moveToLocation(creep, controller)
+        moveToLocation(creep, creep.room.name, controller)
  
     }
 }

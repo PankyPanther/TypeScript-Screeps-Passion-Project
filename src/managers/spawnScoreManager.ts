@@ -26,9 +26,9 @@ export function spawnScoreManager(room: Room): string | undefined{
         return 'hauler'
     }
 
-    else if (room.controller && room.controller.level > 1 && scoutAmount < 1){
-        return 'scout'
-    }
+    // else if (room.controller && room.controller.level > 1 && scoutAmount < 1){
+    //     return 'scout'
+    // }
     else if (room.find(FIND_CONSTRUCTION_SITES).length > 0 && Memory.GameStats.creepRolePartCount.builder.work < 20 && upgraderAmount > 0 && energyAmount > 0){
         return 'builder'
     }

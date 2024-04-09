@@ -4,13 +4,11 @@ import { deleteSourceData } from "utils/deleteSourceData";
 import { isInitialize, initialize} from "Rooms/roles/initialize";
 import { initializeGameStats } from "utils/GameStats/initializeGameStats";
 
-import { ROLES } from "creeps/roles"
-import { countCreeps } from "utils/GameStats/countCreeps";
-import { countRoleParts } from "utils/GameStats/countRoleParts";
-
 export function loop(): void {
   // console.log(creepRoleParts)
   // console.log(`Current game tick is ${Game.time}`);
+
+  
   for (const creepName in Memory.creeps) {
     if(!Game.creeps[creepName]) {
       console.log(`Deleting memory for dead creep: ${creepName}`)
